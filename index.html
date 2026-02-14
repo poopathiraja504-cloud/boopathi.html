@@ -1,0 +1,58 @@
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Flame, Cog, ArrowLeftRight, Snowflake, Thermometer } from "lucide-react";
+import IdealGasProcesses from "@/components/IdealGasProcesses";
+import ThermodynamicCycles from "@/components/ThermodynamicCycles";
+import HeatExchangers from "@/components/HeatExchangers";
+import RefrigerationSystems from "@/components/RefrigerationSystems";
+import HeatTransfer from "@/components/HeatTransfer";
+
+const tabs = [
+  { id: "gas", label: "Ideal Gas", icon: Flame, component: IdealGasProcesses },
+  { id: "cycles", label: "Cycles", icon: Cog, component: ThermodynamicCycles },
+  { id: "exchangers", label: "Exchangers", icon: ArrowLeftRight, component: HeatExchangers },
+  { id: "refrigeration", label: "Refrigeration", icon: Snowflake, component: RefrigerationSystems },
+  { id: "transfer", label: "Heat Transfer", icon: Thermometer, component: HeatTransfer },
+];
+
+const Index = () => {
+  return (
+    <div className="min-h-screen bg-background">
+      <header className="border-b border-border px-6 py-4">
+        <div className="max-w-4xl mx-auto flex items-center gap-3">
+          <div className="w-8 h-8 rounded bg-primary/20 flex items-center justify-center">
+            <Flame className="w-4 h-4 text-primary" />
+          </div>
+          <div>
+            <h1 className="text-lg font-semibold text-foreground tracking-tight">ThermoAnalyzer</h1>
+            <p className="text-xs text-muted-foreground">Advanced Thermodynamic Cycle & Heat System Calculator</p>
+          </div>
+        </div>
+      </header>
+
+      <main className="max-w-4xl mx-auto px-6 py-6">
+        <Tabs defaultValue="gas" className="space-y-6">
+          <TabsList className="bg-card border border-border h-auto p-1 flex flex-wrap gap-1">
+            {tabs.map(tab => (
+              <TabsTrigger
+                key={tab.id}
+                value={tab.id}
+                className="flex items-center gap-1.5 text-xs data-[state=active]:bg-primary data-[state=active]:text-primary-foreground px-3 py-2"
+              >
+                <tab.icon className="w-3.5 h-3.5" />
+                {tab.label}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+
+          {tabs.map(tab => (
+            <TabsContent key={tab.id} value={tab.id}>
+              <tab.component />
+            </TabsContent>
+          ))}
+        </Tabs>
+      </main>
+    </div>
+  );
+};
+
+export default Index;
